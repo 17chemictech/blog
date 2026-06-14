@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  }).format(date);
+---
+
+<BaseLayout>
+  <div class="shell">
+    <header class="site-header">
+      <a class="brand" href="/">Olivie Blog</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/rss.xml">RSS</a>
+        <a href="https://olivie.space">olivie.space</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">Notes from the workbench.</h1>
+          <p class="dek">
+            Essays, project logs, and clear notes on what is being built,
+            tested, and learned.
+          </p>
+        </div>
+        <aside class="meta">
+          <strong>blog.olivie.space</strong><br />
+          Static, fast, and versioned in GitHub.
+        </aside>
+      </section>
+
+      <section class="post-list" aria-label="Posts">
+        {
+          posts.map((post) => (
+            <article class="post-item">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+              <div>
+                <h2>
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                </h2>
+                <p>{post.data.description}</p>
+                <div class="tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      Built with Astro. Deployed by Cloudflare Pages.
+    </footer>
+  </div>
+</BaseLayout>

@@ -1,0 +1,200 @@
+---
+const {
+  title = "Olivie Blog",
+  description = "Notes, essays, and project logs.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Olivie Blog" href="/rss.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --bg: #fbf5f4;
+    --ink: #191919;
+    --muted: #68605d;
+    --line: #d8cbc7;
+    --accent: #d31710;
+    --paper: #fffaf8;
+    font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  .shell {
+    width: min(960px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    gap: 18px;
+    font-size: 14px;
+  }
+
+  main {
+    padding: 56px 0 72px;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.5fr);
+    gap: 48px;
+    align-items: end;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  h1 {
+    max-width: 780px;
+    margin: 0;
+    font-size: clamp(44px, 8vw, 96px);
+  }
+
+  .dek {
+    max-width: 620px;
+    margin: 24px 0 0;
+    color: var(--muted);
+    font-size: 19px;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .post-list {
+    display: grid;
+    gap: 0;
+    margin-top: 24px;
+  }
+
+  .post-item {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-item h2 {
+    margin: 0 0 10px;
+    font-size: clamp(25px, 4vw, 38px);
+  }
+
+  .post-item p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .article {
+    max-width: 760px;
+  }
+
+  .article h1 {
+    font-size: clamp(42px, 7vw, 76px);
+  }
+
+  .article :global(p) {
+    font-size: 18px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    border-bottom: 1px solid var(--accent);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .site-footer {
+    padding: 28px 0 40px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 720px) {
+    .site-header,
+    .intro,
+    .post-item {
+      display: block;
+    }
+
+    .nav,
+    .intro aside {
+      margin-top: 16px;
+    }
+
+    main {
+      padding-top: 40px;
+    }
+
+    .post-item time {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+</style>
