@@ -55,8 +55,12 @@ du -sh "$STAGE"
 
 step "同步到部署仓库"
 [ -d "$DEPLOY_DIR/.git" ] || { echo "$DEPLOY_DIR 不是 git 仓库"; exit 1; }
-rsync -a --delete --exclude .git --exclude README.md "$STAGE/" "$DEPLOY_DIR/"
 cd "$DEPLOY_DIR"
+# 部署仓库是纯产物仓库：先对齐远端（GitHub 网页/Pages API 都可能往里写提交），
+# 再整体覆盖，保证推送一定是 fast-forward。
+git fetch -q origin main
+git reset -q --hard origin/main
+rsync -a --delete --exclude .git --exclude README.md "$STAGE/" "$DEPLOY_DIR/"
 git status --short | head -20
 
 if [ "${SKIP_PUSH:-0}" = "1" ]; then
