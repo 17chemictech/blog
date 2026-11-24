@@ -1,0 +1,4 @@
+# pnpm 11：允许跑 postinstall 的依赖（esbuild / sharp 需要下载/编译原生二进制）
+allowBuilds:
+  esbuild: true
+  sharp: true
