@@ -8,4 +8,4 @@ draft: false
 
 This is the first post on this site.
 
-The blog is intentionally simple: Markdown files, static output, and automatic deployment from GitHub to Cloudflare Pages.
+The blog is intentionally simple: Markdown files, static output, and automatic deployment from GitHub to GitHub Pages.
